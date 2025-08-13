@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-book"></i>
+                    <h1>Library Management System</h1>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-books"></i>
+                        <span class="stat-number" id="totalBooks">0</span>
+                        <span class="stat-label">Total Books</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="view">
+                <i class="fas fa-list"></i> View Books
+            </button>
+            <button class="tab-btn" data-tab="add">
+                <i class="fas fa-plus"></i> Add Book
+            </button>
+            <button class="tab-btn" data-tab="search">
+                <i class="fas fa-search"></i> Search Books
+            </button>
+        </nav>
+
+        <!-- Tab Contents -->
+        <main class="main-content">
+            <!-- View Books Tab -->
+            <section id="view-tab" class="tab-content active">
+                <div class="section-header">
+                    <h2><i class="fas fa-book-open"></i> Book Collection</h2>
+                    <button class="btn btn-secondary" onclick="loadBooks()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading books...
+                </div>
+                <div class="books-grid" id="booksGrid"></div>
+            </section>
+
+            <!-- Add Book Tab -->
+            <section id="add-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Add New Book</h2>
+                </div>
+                <form class="add-book-form" id="addBookForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="title">
+                                <i class="fas fa-heading"></i> Title *
+                            </label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">
+                                <i class="fas fa-user-edit"></i> Author *
+                            </label>
+                            <input type="text" id="author" name="author" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">
+                                <i class="fas fa-tags"></i> Genre
+                            </label>
+                            <input type="text" id="genre" name="genre">
+                        </div>
+                        <div class="form-group">
+                            <label for="availableCopies">
+                                <i class="fas fa-copy"></i> Available Copies
+                            </label>
+                            <input type="number" id="availableCopies" name="availableCopies" min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="isbn">
+                                <i class="fas fa-barcode"></i> ISBN
+                            </label>
+                            <input type="text" id="isbn" name="isbn">
+                        </div>
+                        <div class="form-group">
+                            <label for="publishedYear">
+                                <i class="fas fa-calendar"></i> Published Year
+                            </label>
+                            <input type="number" id="publishedYear" name="publishedYear" min="1000" max="2024">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Book
+                    </button>
+                </form>
+            </section>
+
+            <!-- Search Books Tab -->
+            <section id="search-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-search"></i> Search Books</h2>
+                </div>
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Enter book title...">
+                        <button class="btn btn-primary" onclick="searchBooks()">Search</button>
+                    </div>
+                    <div class="search-options">
+                        <label>
+                            <input type="radio" name="searchType" value="callback" checked>
+                            <span>Callback Method</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="searchType" value="promise">
+                            <span>Promise Method</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="searchType" value="mongodb">
+                            <span>MongoDB Search</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h3>Confirm Action</h3>
+            <p id="confirmMessage"></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
